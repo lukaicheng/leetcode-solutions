@@ -26,6 +26,10 @@ public class RansomNoteSolution {
         System.out.println(solution.canConstruct("a", "b"));
         System.out.println(solution.canConstruct("aa", "ab"));
         System.out.println(solution.canConstruct("aa", "aab"));
+        
+        System.out.println(solution.canConstruct0("a", "b"));
+        System.out.println(solution.canConstruct0("aa", "ab"));
+        System.out.println(solution.canConstruct0("aa", "aab"));
     }
 
     public boolean canConstruct(String ransomNote, String magazine) {
@@ -57,6 +61,32 @@ public class RansomNoteSolution {
                 return false;
             }
             if (magazineMap.get(key) < entry.getValue()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean canConstruct0(String ransomNote, String magazine) {
+        int[] summary = new int[26];
+        char[] noteArray = ransomNote.toCharArray();
+        char[] magazineArray = magazine.toCharArray();
+        int size = noteArray.length > magazineArray.length ? noteArray.length
+                : magazineArray.length;
+        int m = noteArray.length - 1;
+        int n = magazineArray.length - 1;
+        for (int i = size - 1; i >= 0; i--) {
+            if (m >= 0) {
+                int index = noteArray[m--] - 'a';
+                summary[index]--;
+            }
+            if (n >= 0) {
+                int index = magazineArray[n--] - 'a';
+                summary[index]++;
+            }
+        }
+        for (int item : summary) {
+            if (item < 0) {
                 return false;
             }
         }
