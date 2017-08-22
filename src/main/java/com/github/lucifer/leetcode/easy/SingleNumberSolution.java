@@ -25,8 +25,8 @@ public class SingleNumberSolution {
      * @return
      */
     public int singleNumber(int[] nums) {
-        for (int i = nums.length - 1; i >= 1; i--) {
-            nums[i - 1] = nums[i] ^ nums[i - 1];
+        for (int i = 1; i < nums.length; i++) {
+            nums[0] = nums[0] ^ nums[i];
         }
         return nums[0];
     }
